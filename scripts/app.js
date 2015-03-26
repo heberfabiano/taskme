@@ -5,7 +5,9 @@ var app = angular
     'ngAnimate',
     'ngResource',    
     'ngRoute',    
-    'firebase'
+    'firebase',
+    'toaster',
+    'angularMoment'
   ])
 
   .constant('FURL', 'https://task-me.firebaseio.com/')
@@ -13,25 +15,20 @@ var app = angular
   .config(function ($routeProvider) {
     $routeProvider      
       .when('/', {
-        templateUrl: 'views/main.html'        
+        templateUrl: 'views/browse.html',
+        controller: 'BrowseController'
       })
       .when('/login', {
-        templateUrl: 'views/login.html'
+        templateUrl: 'views/login.html',
+        controller: 'AuthController'
       })
       .when('/register', {
-        templateUrl: 'views/register.html'
+        templateUrl: 'views/register.html',
+        controller: 'AuthController'
       })
-      .when('/post', {
-        templateUrl: 'views/post.html',
-        controller: 'TaskController'
-      })
-      .when('/edit/:taskId', {
-        templateUrl: 'views/edit.html',
-        controller: 'TaskController'
-      })
-      .when('/browse', {
+      .when('/browse/:taskId', {
         templateUrl: 'views/browse.html',
-        controller: 'TaskController'
+        controller: 'BrowseController'
       })
       .otherwise({
         redirectTo: '/'

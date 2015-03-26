@@ -1,0 +1,23 @@
+<div class="modal fade" id="ediModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="panel panel-info title">
+				<div class="panel-heading title">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="panel-title">Editar Tarefa</h3>
+				</div>
+
+				<div class="panel-body">
+					<form ng-submit="editTask(selectedTask)">
+						<input type="text" ng-model="selectedTask.title" class="form-control" placeholder="Tarefa" required><br>
+						<textarea ng-model="selectedTask.description" class="form-control" placeholder="Descreva o que você precisa" required></textarea><br>
+						<input type="number" ng-model="selectedTask.total" class="form-control" placeholder="Quanto você pretende pagar?" required><br>
+						<input type="submit" value="Atualizar" class="btn btn-info">
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
