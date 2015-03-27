@@ -17,6 +17,10 @@ app.controller('AuthController', function($scope, $location, Auth, toaster) {
 		});
 	}
 
+	$scope.facebookRegister = function() {
+		Auth.facebookRegister();
+	}
+
 	$scope.login = function(user) {
 		Auth.login(user)
 			.then(function() {

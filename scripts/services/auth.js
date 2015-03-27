@@ -36,6 +36,10 @@ var Auth = {
 			});
 	},
 
+  facebookRegister: function() {
+
+  },
+
 	logout: function() {
 		auth.$unauth();
 	},
