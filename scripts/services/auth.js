@@ -20,6 +20,10 @@ var Auth = {
 		return profileRef.$set(uid, profile);
 	},
 
+  getProfile: function(uid) {
+    return $firebase(ref.child('profile').child(uid)).$asObject();
+  },
+
 	login: function(user) {
 		return auth.$authWithPassword(
 			{email: user.email, password: user.password}
@@ -50,7 +54,11 @@ var Auth = {
 
 	signedIn: function() {
 		return !!Auth.user.provider;
-	}
+	},
+
+  requireAuth: function() {
+    return auth.$requireAuth();
+  }
 
 };
 

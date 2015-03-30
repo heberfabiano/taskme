@@ -1,4 +1,4 @@
-<div class="container" ng-controller="BrowseController">
+<div class="container">
 	<div class="row">
 
 		<div class="col-md-offset-1 col-md-4">
@@ -75,6 +75,10 @@
 								<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Negociar</button>
 							</div>
 
+							<div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
+								<button class="btn btn-danger btn-sm" ng-click= "completeTask(selectedTask.$id)">Finalizar</button>
+							</div>							
+
 						</div>						
 					</div>
 
@@ -111,6 +115,12 @@
 
 								<div class="row" ng-repeat="offer in offers">
 									<div class="col-md-10">
+
+										<button ng-show="offer.accepted" class="btn btn-success btn-xs disabled">Atribuída</button>
+
+										<button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn btn-info btn-xs" 
+										ng-click="acceptOffer(offer.$id,offer.uid)">Aceitar - ${{offer.total}}</button>
+
 										<button ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn btn-danger btn-xs" 
 										ng-click="cancelOffer(offer.$id)">Cancelar minha Oferta - ${{offer.total}}</button>
 										

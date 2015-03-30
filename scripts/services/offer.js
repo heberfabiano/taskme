@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Offer', function(FURL, $firebase, $q, Auth) {
+app.factory('Offer', function(FURL, $firebase, $q, Auth, Task) {
 
 	var ref = new Firebase(FURL);
 	var user = Auth.user;
@@ -46,6 +46,33 @@ app.factory('Offer', function(FURL, $firebase, $q, Auth) {
 
 		cancelOffer: function (taskId, offerId) {
 			return this.getOffer(taskId, offerId).$remove();
+		},
+
+		acceptOffer: function(taskId, offerId, runnerId) {
+			var o = this.getOffer(taskId, offerId);
+			return o.$update({accepted: true}).then(function() {
+
+				var t = Task.getTask(taskId);
+				return t.$update({status: "assigned", runner: runnerId});
+			})
+			.then(function() {
+				return Task.createUserTasks(taskId);
+			});
+		},
+
+		notifyRunner: function(taskId, runnerId) {
+			Auth.getProfile(runnerId).$loaded().then(function(runner) {
+
+				var n = {
+					taskId: taskId,
+					email: runner.email,
+					name: runner.name
+				};
+
+				var notifications = $firebase(ref.child('notifications')).$asArray();
+				return notifications.$add(n);
+
+			});
 		}
 
 	};
